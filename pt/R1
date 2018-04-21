@@ -1,0 +1,4 @@
+report_constraints -all_violators -max_delay -recovery -nosplit > $RptDIR/setup.brief3.rpt
+report_constraints -all_violators -min_delay -removal -nosplit > $RptDIR/hold.brief3.rpt
+
+

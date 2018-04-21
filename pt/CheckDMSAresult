@@ -1,0 +1,28 @@
+echo "noneClkBufList"
+grep -v "#" postCTS_fast0p99v125_cbest125_1_1/rpt/pdClockTran_noneClkBufList.rpt
+
+echo "Clock Tran"
+grep -v "#" post*1/rpt/pdClockTran_vioNetDriver.rpt
+
+echo "read RC"
+grep "error(s)" post*1/rpt/read_rc*
+
+echo "read SDC"
+grep "Error" *_fast0p99v125_cbest125_1_1/rpt/source_sdc.log | grep -v SEL-005
+
+echo "short Output"
+cat postCTS_fast0p99v125_cbest125_1_1/rpt/mrvl_short_output.rpt
+
+echo "Tran"
+grep VIO post*1/rpt/tran* | wc -l
+
+echo "Setup"
+grep VIO post*0/rpt/setup.brief.rpt | wc -l
+grep VIO scan*0/rpt/setup.brief.rpt | wc -l
+grep VIO TDF*0/rpt/setup.brief.rpt | wc -l
+
+echo "Hold"
+grep VIO post*1/rpt/hold.brief.rpt | wc -l
+grep VIO scan*1/rpt/hold.brief.rpt | wc -l
+grep VIO TDF*1/rpt/hold.brief.rpt | wc -l
+

@@ -1,0 +1,1 @@
+awk '{print "ecoAddRepeater -cell "$7"  -name "$16" -newNetName "$15" -term "$4$13}' $1 > $2

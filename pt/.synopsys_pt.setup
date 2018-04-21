@@ -1,0 +1,59 @@
+set USER $env(USER)
+echo "Starting read varibales based on settigs in $env(DefaultFile)"
+set var_file [open $env(DefaultFile)]
+set var_data [read $var_file]
+foreach line [split $var_data "\n"] {
+  set length [string length $line]
+  if {[string length $line] > 0} { if {[string equal [string index $line 0] "#"]} {} else { 
+    set var [lindex [split $line " "] 1]
+    set $var $env($var)
+  }}
+}
+close $var_file
+
+if {$DMSA==0} {
+  set sh_output_log_file $env(logfile)
+  set sh_command_log_file $env(cmdfile)
+} else {
+  set multi_scenario_working_directory .
+}
+
+
+source /proj/elnath1/wa/${USER}/scr/pt/myproc.tcl
+#source /proj/cadpnr/pds/dev/pdt/pdSignoffCriteria.tcl
+source /proj/cadpnr/pds/dev/msta/1.5/mSignoffCriteria.tcl
+
+history keep 1000
+
+suppress_message RC-004
+suppress_message RC-009
+suppress_message XTALK-106
+suppress_message UITE-216
+suppress_message UITE-217
+suppress_message PTE-060
+suppress_message UITE-416
+suppress_message RC-011
+suppress_message LNK-045
+
+set sh_enable_line_editing			true
+#set sh_enable_page_mode			false
+set sh_message_limit                            0
+set report_default_significant_digits           3
+set auto_wire_load_selection                    false
+set sdc_write_unambiguous_names                 false
+set svr_keep_unconnected_nets                   true
+set timing_disable_clock_gating_checks          false
+set timing_input_port_default_clock             false
+set timing_disable_internal_inout_cell_paths    true
+set timing_disable_internal_inout_net_arcs      false
+set timing_enable_multiple_clocks_per_reg       true
+set timing_non_unate_clock_compatibility        false
+set timing_report_unconstrained_paths           true
+set timing_clock_reconvergence_pessimism        normal
+set timing_remove_clock_reconvergence_pessimism true
+set timing_save_pin_arrival_and_slack           true
+set power_default_toggle_rate			0.1
+set power_enable_analysis			TRUE
+set power_analysis_mode				averaged
+set link_create_black_boxes                     false
+set link_allow_design_mismatch			true

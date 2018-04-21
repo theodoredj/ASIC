@@ -1,0 +1,28 @@
+#!/bin/csh -f
+
+echo $argv
+source /proj/deneb1/wa/$USER/scr/var.setup $argv
+
+if  $DMSA == 0 then
+  setenv runID		Load.$TOP.$LIB.$rcCorner.$XTALK.$OCV.$ID.$TimeStamp
+  setenv RptDIR		./$runID/rpt
+  setenv SessionDIR	./$runID/session
+  setenv logfile	$runID/pt.log
+  setenv cmdfile	$runID/pt.cmd
+else
+  setenv runID		Load.$TOP.DMSA.$Mode.$ID.$TimeStamp
+  setenv RptDIR		./rpt
+  setenv SessionDIR	./session
+endif
+
+if (! -d $runID ) mkdir $runID
+if (! -f .synopsys_pt.setup) ln -s $StaDIR/.synopsys_pt.setup .
+
+
+if $SESSION == 0 then
+  pt_shell -sgq $SGQ -sgm $SGM -sgc $SGC -f $StaDIR/lib.tcl
+else if  $DMSA == 0 then
+  pt_shell -sgq $SGQ -sgm $SGM -sgc $SGC -f $StaDIR/load.tcl
+else
+  pt_shell -multi_scenario -sgq $SGQ -sgm $SGM -sgc $SGC -f $StaDIR/load_dmsa.tcl
+endif

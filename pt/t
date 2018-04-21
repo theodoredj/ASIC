@@ -1,0 +1,28 @@
+set power_enable_analysis TRUE
+set power_analysis_mode averaged
+define_user_attribute -type string -class lib default_threshold_voltage_group
+set_user_attribute [get_libs m9hzd_std_${LIB}_ccstn] default_threshold_voltage_group HVT
+set_user_attribute [get_libs m9szd_std_${LIB}_ccstn] default_threshold_voltage_group SVT
+set_user_attribute [get_libs m9lzd_std_${LIB}_ccstn] default_threshold_voltage_group LVT
+report_threshold_voltage_group >> $RptDIR/checklist.aon.iso.lvt.pwr.rpt
+
+mrvl_report_shorted_output_pins -output $RptDIR/mrvl_short_output.rpt
+mrvl_report_unconnected_input_pins -leaf_only -output $RptDIR/mrvl_open_input.rpt
+mrvl_report_logic_cones >  $RptDIR/mrvl_logic_cones.rpt    
+mrvl_report_logic_levels > $RptDIR/mrvl_logic_levels.rpt
+
+
+
+	set power_default_toggle_rate 0.1
+	check_power -verbose
+	update_power
+	report_power >> $RptDIR/checklist.aon.iso.lvt.pwr.rpt
+
+source /proj/cadpnr/pds/tools/pt/clock/pdReportClockTran_pt.tcl
+pdReportClockTran > $RptDIR/clk.tran.rpt
+sh mv pdClockTran.tran                  $RptDIR/.
+sh mv pdClockTran_noneClkBufList.rpt    $RptDIR/.
+sh mv pdClockTran_pseudoClkTrace.rpt    $RptDIR/.
+sh mv pdClockTran_violationSummary.rpt  $RptDIR/.
+sh mv pdClockTran_vioNetDriver.rpt      $RptDIR/.
+

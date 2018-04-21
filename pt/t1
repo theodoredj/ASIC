@@ -1,0 +1,7 @@
+source /proj/cadpnr/pds/tools/pt/clock/pdReportClockTran_pt.tcl
+pdReportClockTran -of_lib m7szd_clklib_${LIB}_ccstn -clockBuf ucbuf -clockInv uciv > $RptDIR/clk.tran.rpt
+sh mv pdClockTran.tran                  $RptDIR/.
+sh mv pdClockTran_noneClkBufList.rpt    $RptDIR/.
+sh mv pdClockTran_pseudoClkTrace.rpt    $RptDIR/.
+sh mv pdClockTran_violationSummary.rpt  $RptDIR/.
+sh mv pdClockTran_vioNetDriver.rpt      $RptDIR/.

@@ -1,0 +1,12 @@
+#!/bin/csh -f
+echo $argv
+
+source /proj/deneb1/wa/$USER/scr/var.setup $argv -dmsa 1
+
+setenv runID		DMSA.$TOP.$Mode.$ID.$TimeStamp
+setenv RptDIR		./rpt
+setenv SessionDIR	./session
+if (! -d $runID ) mkdir $runID
+if (! -e .synopsys_pt.setup) ln -s $StaDIR/.synopsys_pt.setup .
+
+pt_shell -multi_scenario -sgq $SGQ -sgm $SGM -sgc $SGC -f $StaDIR/master.tcl
