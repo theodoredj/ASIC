@@ -1,0 +1,179 @@
+-time TimeStamp NoTime
+-user USER NOUSER
+-sgq SGQ normal:32m:1c
+-id ID Normal #ID is special name tag used in runID
+
+####################################################################
+### TOP module has no sub-blocks, -Modules_SUB has to be "NONE"
+### TOP module has sub-blocks, -Modules_SUB is a file(sub.txt) name.
+##### Format of sub.txt
+##### Column 1: Keyword: DB / V / RC
+##### Column 2: Sub block Module Name
+##### Column 3: file path, either DB file, or Verilog file, or RC file
+##### Column 4: Sub block in TOP module path
+##### Split of Column : Single Space
+##### Non-default TOP module verilog/RC file should use 
+##### -Modules_Verilog & -Modules_RC
+-top TOP be_top
+-Modules_SUB Modules_SUB NONE
+
+-Modules Modules default
+-Modules_Path Modules_Path TOP
+-Modules_Verilog Modules_Verilog default
+-Modules_RC Modules_RC default
+####################################################################
+
+
+-libset LIBSET /proj/elnath1/libset/Elnath_top.1.0A.20180412
+-scrdir ScrDIR /proj/elnath1/wa/jundong/scr/pt
+-stadir StaDIR /proj/elnath1/wa/jundong/scr/pt
+-syndir SynDIR /proj/elnath1/wa/jundong/scr/syn
+-sdcdir SdcDIR /proj/elnath1/wa/jundong/scr/sdc
+-lecdir LecDIR /proj/elnath1/wa/jundong/scr/lec
+-mvrcdir MvrcDIR /proj/elnath1/wa/jundong/scr/mvrc
+-tempusdir TempusDIR /proj/elnath1/wa/jundong/scr/tempus
+-vclpdir VclpDIR /proj/elnath1/wa/jundong/scr/vclp
+-release ReleaseDIR /proj/elnath1t/wa/elnath1t/release/current
+-flat FLAT 1 # 1 / 0
+-save SAVE 1 # 1 / 0
+-exit EXIT 0 # 1 / 0
+-tool TOOL PT # PT / TEMPUS
+-dono DoNothing 0 # 1 / 0
+-logfile logfile Default.log
+-cmdfile cmdfile Default.cmd
+##########################################################################################
+############################## Synopsys Common ##############################
+##########################################################################################
+-lib LIB ssgnp0p72v125c # ffgnp0p88v125c ffgnp0p88v0c ffgnp0p88vm40c ssgnp0p72v0c ssgnp0p72v125c ssgnp0p72vm40c ssgnp0p9v125c tt0p8v25c tt0p8v85c
+-rc rcCorner cworst0c # cworst0c cworstm40c cworst125c rcbest0c rcbestm40c rcworst125c cbest125c typical25c typical85c
+-norc NoRC 0
+-rcformat RCFormat SPEF
+
+-sdc SDC 0 # 0 (Default SDC) / SDC file location
+##########################################################################################
+############################## PT ##############################
+##########################################################################################
+-dmsa DMSA 0 # 0 / 1
+-type TYPE setup # setup / hold
+
+-scenario_setup_ssLVLT_m40 scenario_setup_ssLVLT_m40 0 # ssgnpLVLT_cworst_ccwLT    ssgnp0p72vm40c cworstm40c
+-scenario_setup_ssLVLT_ccw scenario_setup_ssLVLT_ccw 0 # ssgnpLVLT_cworst_ccwLT    ssgnp0p72v0c cworst0c
+
+-scenario_setup_ssLVHT_rcw scenario_setup_ssLVHT_rcw 0 # ssgnpLVHT_rcworst_ccwHT    ssgnp0p72v125c rcworst125c
+-scenario_setup_ssLVHT_ccw scenario_setup_ssLVHT_ccw 0 # ssgnpLVHT_cworst_ccwHT    ssgnp0p72v125c cworst125c
+-scenario_setup_typ85 scenario_setup_typ85 0 # typTVTT_typicalTT       tt0p8v85c typical85c
+
+-scenario_hold_ssLVHT_ccb scenario_hold_ssLVHT_ccb 0 # ssgnpLVHT_cbest_ccbHT     ssgnp0p72v125c cbest125c
+-scenario_hold_ssLVLT_ccw scenario_hold_ssLVLT_ccw 0 # ssgnpLVLT_cworst_ccwLT    ssgnp0p72vm40c cworstm40c
+-scenario_hold_ssHVHT_rcw scenario_hold_ssHVHT_rcw 0 # ssgnpHVHT_rcworst_ccwHT   ssgnp0p9v125c rcworst125c
+-scenario_hold_ffHVLT_rcb scenario_hold_ffHVLT_rcb 0 # ffgnpHVLT_rcbest_ccbLT    ffgnp0p88vm40c rcbestm40c
+-scenario_hold_ffHVHT_rcw scenario_hold_ffHVHT_rcw 0 # ffgnpHVHT_rcworst_ccwHT   ffgnp0p88v125c rcworst125c
+-scenario_hold_typ25 scenario_hold_typ25 0 # typTVTT_typicalTT       tt0p8v25c typical25c
+
+-scenario_setup scenario_setup 0
+-scenario_hold scenario_hold 0
+-scenario_all scenario_all 0
+-scenario_all5 scenario_all5 0
+-scenario_NoTYP scenario_NoTYP 0
+
+#scenario_all5 will turn on next 5 corner
+#     #scenario_setup_ssLVLT_m40
+#     #scenario_setup_ssLVHT_rcw
+#     #scenario_hold_ssLVLT_ccw
+#     #scenario_hold_ssHVHT_rcw
+#     #scenario_hold_ffHVHT_rcw
+
+-wpe WPE 0
+-ice PT4ICE 0
+-sdf SAVE_SDF 0
+-makedb MakeDB 0
+-prects preCTS 0
+######
+-m9 M9 0
+-mode Mode postCTS
+-xtalk XTALK 1
+-ocv OCV 1
+-derate DERATE_FACTOR 0.065
+-holdcu HoldCU 0.05
+-setupcu SetupCU 0.03
+-TCL1 TCL1 NONE
+-TCL2 TCL2 /proj/elnath1/wa/jundong/scr/pt/SDC.tcl
+-TCL3 TCL3 /proj/elnath1/wa/jundong/scr/pt/UpdateTiming.tcl
+-TCL4 TCL4 /proj/elnath1/wa/jundong/scr/pt/Report.tcl
+-TCL5 TCL5 NONE
+-saif SAIF 0
+-toggle TOGGLE 0.1
+-session SESSION 0
+##########################################################################################
+############################## DC ##############################
+##########################################################################################
+-design_name DESIGN_NAME DENEB_TOP
+-def DEF 0
+-upf UPF 0
+-spg SPG 0
+-inc IncComp 0
+-track TRACK 7
+-fv FV svf ## svf/mdp/0
+-lvt LVT 0
+-lscr Lscr /proj/elnath1/wa/jundong/scr/syn/DENEB_TOP_dcg.tcl
+
+-TEMP_DDC TEMP_DDC 
+-ALL_DDCFILES ALL_DDCFILES 
+-ALL_NETLISTS ALL_NETLISTS 
+-ALL_VHDFILES ALL_VHDFILES 
+-ALL_SVFILES ALL_SVFILES 
+-ALL_VFILES ALL_VFILES 
+-ALL_VLIST ALL_VLIST 
+-ALL_V_LIST ALL_V_LIST 
+-ALL_SV_LIST ALL_SV_LIST 
+-ALL_AUTO_LIST ALL_AUTO_LIST 
+-ALL_DEFINE_LIST ALL_DEFINE_LIST 
+-ALL_RTL_FILES ALL_RTL_FILES 
+-ALL_V_LIST_FILES ALL_V_LIST_FILES 
+-ALL_SV_LIST_FILES ALL_SV_LIST_FILES 
+-ALL_AUTO_LIST_FILES ALL_AUTO_LIST_FILES 
+
+-ddc DDC 
+-netlist Netlist 
+
+##########################################################################################
+############################## Synopsys Common ##############################
+##########################################################################################
+### These variable will be updated in run script ###
+-runID runID Default
+-RptDIR RptDIR Default
+-SessionDIR SessionDIR Default
+-RPT RPT Default
+-OUT OUT Default
+##########################################################################################
+############################## MVRC /VCLP ##############################
+##########################################################################################
+-ARCHPRO_ROOT ARCHPRO_ROOT /proj/caeeda/SYNOPSYS/MVTOOLS/I-2014.03
+-file FileList pgfiles.list
+-UPFfile UPFfile 0
+-pg PG 0
+-UPF_DIR UPF_DIR /proj/elnath1/wa/jundong/scr/vclp
+-map MapFile 0
+#### Next are variables used in TSB's UPF which we can also use in our flow
+-TOP_MODULE TOP_MODULE DENEB_TOP
+-FLAT_ANALYSIS FLAT_ANALYSIS 0 ### Valid value is yes/0 in this case other program may use 1/0
+
+##########################################################################################
+############################## LEC ##############################
+##########################################################################################
+-topg TOPG u_pci_isl
+-topr TOPR u_pci_isl
+-rtl RTL rtl.lst
+-ldo Ldo /proj/elnath1/wa/jundong/scr/lec/none.do
+-ndo Ndo /proj/elnath1/wa/jundong/scr/lec/none.do
+-mdo Mdo /proj/elnath1/wa/jundong/scr/lec/none.do
+-golden G1 ./G1.v
+-revised G2 ./G2.v
+-mode MODE g2g/rtl2g
+
+
+
+
+
+
+############################# END of Default Value Setup ###################################
